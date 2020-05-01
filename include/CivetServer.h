@@ -245,7 +245,7 @@ class CIVETWEB_CXX_API CivetServer
 	CivetServer(const char **options,
 	            const struct CivetCallbacks *callbacks = 0,
 	            const void *UserContext = 0);
-	CivetServer(std::vector<std::string> options,
+	CivetServer(const std::vector<std::string> &options,
 	            const struct CivetCallbacks *callbacks = 0,
 	            const void *UserContext = 0);
 
@@ -583,11 +583,7 @@ class CIVETWEB_CXX_API CivetServer
 	class CivetConnection
 	{
 	  public:
-		char *postData;
-		unsigned long postDataLen;
-
-		CivetConnection();
-		~CivetConnection();
+		std::vector<char> postData;
 	};
 
 	struct mg_context *context;
