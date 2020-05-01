@@ -858,7 +858,8 @@ CIVETWEB_API int mg_websocket_client_write(struct mg_connection *conn,
    with websockets only.
    Invoke this before mg_write or mg_printf when communicating with a
    websocket if your code has server-initiated communication as well as
-   communication in direct response to a message. */
+   communication in direct response to a message.
+   Do not acquire this lock while holding mg_lock_context(). */
 CIVETWEB_API void mg_lock_connection(struct mg_connection *conn);
 CIVETWEB_API void mg_unlock_connection(struct mg_connection *conn);
 
@@ -870,7 +871,8 @@ CIVETWEB_API void mg_unlock_connection(struct mg_connection *conn);
 
 
 /* Lock server context.  This lock may be used to protect resources
-   that are shared between different connection/worker threads. */
+   that are shared between different connection/worker threads.
+   If the given context is not server, these functions do nothing. */
 CIVETWEB_API void mg_lock_context(struct mg_context *ctx);
 CIVETWEB_API void mg_unlock_context(struct mg_context *ctx);
 
